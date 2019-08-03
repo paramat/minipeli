@@ -1,0 +1,56 @@
+Why Mapgen v6 is not supported
+------------------------------
+
+In the 'game.conf' file, mapgen v6 is set as a disallowed mapgen.
+Mapgen v6 is very different to all the other mapgens, it has hardcoded biomes and does not use the Biome API. Due to this it makes game code more complex and more difficult to maintain, the mapgen also misses many features.
+It is highly recommended that games do not support Mapgen v6 for these reasons.
+
+
+Note about 'lamp' mod
+---------------------
+
+This is not a necessary part of the game, it is only provided in creative mode to illuminate caves and dungeons during testing.
+
+
+How this game was created
+-------------------------
+
+MTG mods used unmodified:
+creative (but optional-depend on 'hand' mod instead of default)
+sfinv
+
+
+MTG mods used modified:
+default (becomes 'base' and 'hand' mods)
+player_api
+
+
+default mod changes:
+Move hand out to a separate mod 'hand'.
+Rename remainder to 'base' mod, now only contains:
+
+Textures:
+bubble
+crack_anylength
+gui_formbg
+gui_furnace_arrow_bg
+gui_hb_bg
+heart
+
+Code:
+minetest.register_on_joinplayer player:set_formspec_prepend
+base.get_hotbar_bg
+
+
+player_api mod changes:
+Now only contains:
+
+Models:
+Player model b3d, blend, skin texture
+Sounds:
+player_damage
+Files:
+api.lua unchanged
+init.lua: From register_on_joinplayer remove:
+player:hud_set_hotbar_image("gui_hotbar.png")
+player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
