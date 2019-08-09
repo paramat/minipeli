@@ -1,5 +1,5 @@
-Minipeli mod: base
-==================
+Minipeli mod: gui
+=================
 See license.txt for license information.
 Derived by paramat from Minetest Game 'default' mod.
 
@@ -10,4 +10,9 @@ Various Minetest developers and contributors (LGPL 2.1)
 
 Authors of media
 ----------------
-All textures by paramat (CC BY-SA 3.0).
+BlockMen (CC BY-SA 3.0):
+  gui_formbg.png
+  gui_hb_bg.png
+
+paramat (CC BY-SA 3.0):
+  gui_furnace_arrow_bg.png

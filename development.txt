@@ -16,30 +16,37 @@ How this game was created
 -------------------------
 
 MTG mods used unmodified:
-creative (but optional-depend on 'hand' mod instead of default)
+creative (but optional-depend on 'hand' mod instead of default, and use new trash icon)
 sfinv
 
 
 MTG mods used modified:
-default (becomes 'base' and 'hand' mods)
+default (becomes 'hand', 'gui' and 'textures' mods)
 player_api
 
 
 default mod changes:
-Move hand out to a separate mod 'hand'.
-Rename remainder to 'base' mod, now only contains:
+Split into 3 mods:
 
+'hand', contains:
 Textures:
-bubble
-crack_anylength
+wieldhand.png
+Code:
+minetest.register_item
+
+'gui', contains:
+Textures:
 gui_formbg
 gui_furnace_arrow_bg
 gui_hb_bg
-heart
-
 Code:
 minetest.register_on_joinplayer player:set_formspec_prepend
-base.get_hotbar_bg
+
+'textures', contains:
+Textures:
+bubble
+crack_anylength
+heart
 
 
 player_api mod changes:

@@ -1,16 +1,70 @@
--- Nodes
+-- Sound tables
+
+local hard_sounds = {
+	footstep = {name = "hard_footstep", gain = 0.3},
+	dig = {name = "dig_cracky", gain = 0.5},
+	dug = {name = "hard_footstep", gain = 1.0},
+	place = {name = "place_node_hard", gain = 1.0},
+}
+
+local hard_sounds_digimm = {
+	footstep = {name = "hard_footstep", gain = 0.3},
+	dig = {name = "dig_dig_immediate", gain = 0.5},
+	dug = {name = "hard_footstep", gain = 1.0},
+	place = {name = "place_node_hard", gain = 1.0},
+}
+
+local soft_sounds = {
+	footstep = {name = "dirt_footstep", gain = 0.4},
+	dig = {name = "dig_crumbly", gain = 0.5},
+	dug = {name = "dirt_footstep", gain = 1.0},
+	place = {name = "place_node", gain = 1.0},
+}
+
+local water_sounds = {
+	footstep = {name = "water_footstep", gain = 0.2},
+}
+
+
+-- Terrain nodes
 
 minetest.register_node("mapgen:stone", {
 	description = "Stone",
 	tiles = {"mapgen_stone.png"},
 	groups = {cracky = 3},
+	sounds = hard_sounds,
 })
+
+minetest.register_node("mapgen:grass", {
+	description = "Grass",
+	tiles = {"mapgen_grass.png"},
+	groups = {crumbly = 3},
+	sounds = soft_sounds,
+})
+
+minetest.register_node("mapgen:dirt", {
+	description = "Dirt",
+	tiles = {"mapgen_dirt.png"},
+	groups = {crumbly = 3},
+	sounds = soft_sounds,
+})
+
+minetest.register_node("mapgen:sand", {
+	description = "Sand",
+	tiles = {"mapgen_sand.png"},
+	groups = {crumbly = 3},
+	sounds = soft_sounds,
+})
+
+
+-- Dungeon nodes
 
 minetest.register_node("mapgen:stone_block", {
 	description = "Stone Block",
 	tiles = {"mapgen_stone_block.png"},
 	is_ground_content = false,
 	groups = {dig_immediate = 2},
+	sounds = hard_sounds_digimm,
 })
 
 minetest.register_node("mapgen:stone_block_stair", {
@@ -32,25 +86,9 @@ minetest.register_node("mapgen:stone_block_stair", {
 			{-0.5, 0.0, 0.0, 0.5, 0.5, 0.5},
 		},
 	},
+	sounds = hard_sounds_digimm,
 })
 
-minetest.register_node("mapgen:grass", {
-	description = "Grass",
-	tiles = {"mapgen_grass.png"},
-	groups = {crumbly = 3},
-})
-
-minetest.register_node("mapgen:dirt", {
-	description = "Dirt",
-	tiles = {"mapgen_dirt.png"},
-	groups = {crumbly = 3},
-})
-
-minetest.register_node("mapgen:sand", {
-	description = "Sand",
-	tiles = {"mapgen_sand.png"},
-	groups = {crumbly = 3},
-})
 
 -- Water
 
@@ -81,6 +119,7 @@ minetest.register_node("mapgen:water_source", {
 	liquid_alternative_source = "mapgen:water_source",
 	liquid_viscosity = 1,
 	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
+	sounds = water_sounds,
 })
 
 minetest.register_node("mapgen:water_flowing", {
@@ -113,7 +152,9 @@ minetest.register_node("mapgen:water_flowing", {
 	liquid_viscosity = 1,
 	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
 	groups = {not_in_creative_inventory = 1},
+	sounds = water_sounds,
 })
+
 
 -- River water
 
@@ -150,6 +191,7 @@ minetest.register_node("mapgen:river_water_source", {
 	liquid_renewable = false,
 	liquid_range = 2,
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
+	sounds = water_sounds,
 })
 
 minetest.register_node("mapgen:river_water_flowing", {
@@ -184,7 +226,9 @@ minetest.register_node("mapgen:river_water_flowing", {
 	liquid_range = 2,
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
 	groups = {not_in_creative_inventory = 1},
+	sounds = water_sounds,
 })
+
 
 -- Lava
 
@@ -255,8 +299,6 @@ minetest.register_node("mapgen:lava_flowing", {
 
 
 -- Aliases for map generators
-
--- Only 3 needed because cave liquids and dungeon nodes are defined in biomes
 
 minetest.register_alias("mapgen_stone", "mapgen:stone")
 minetest.register_alias("mapgen_water_source", "mapgen:water_source")
