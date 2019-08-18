@@ -13,6 +13,3 @@ Authors of media
 BlockMen (CC BY-SA 3.0):
   gui_formbg.png
   gui_hb_bg.png
-
-paramat (CC BY-SA 3.0):
-  gui_furnace_arrow_bg.png

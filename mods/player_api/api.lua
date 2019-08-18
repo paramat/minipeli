@@ -47,14 +47,6 @@ function player_api.set_model(player, model_name)
 			eye_height = model.eye_height or 1.47,
 		})
 		player_api.set_animation(player, "stand")
-	else
-		player:set_properties({
-			textures = {"player.png", "player_back.png"},
-			visual = "upright_sprite",
-			collisionbox = {-0.3, 0.0, -0.3, 0.3, 1.75, 0.3},
-			stepheight = 0.6,
-			eye_height = 1.625,
-		})
 	end
 	player_model[name] = model_name
 end
