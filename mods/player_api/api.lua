@@ -1,17 +1,18 @@
+-- Global table for use by other mods
 player_api = {}
 
 -- Player animation blending
 -- Note: This is currently broken due to a bug in Irrlicht, leave at 0
 local animation_blend = 0
 
-player_api.registered_models = { }
 
--- Local for speed.
+-- Tables
+---------
+
+-- Registered models
+player_api.registered_models = {}
+-- Localize for better performance
 local models = player_api.registered_models
-
-function player_api.register_model(name, def)
-	models[name] = def
-end
 
 -- Player stats and animations
 local player_model = {}
@@ -19,6 +20,15 @@ local player_textures = {}
 local player_anim = {}
 local player_sneak = {}
 player_api.player_attached = {}
+
+
+-- Functions
+------------
+
+function player_api.register_model(model_name, def)
+	models[model_name] = def
+end
+
 
 function player_api.get_animation(player)
 	local name = player:get_player_name()
@@ -29,27 +39,27 @@ function player_api.get_animation(player)
 	}
 end
 
+
 -- Called when a player's appearance needs to be updated
 function player_api.set_model(player, model_name)
 	local name = player:get_player_name()
 	local model = models[model_name]
-	if model then
-		if player_model[name] == model_name then
-			return
-		end
-		player:set_properties({
-			mesh = model_name,
-			textures = player_textures[name] or model.textures,
-			visual = "mesh",
-			visual_size = model.visual_size or {x = 1, y = 1},
-			collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
-			stepheight = model.stepheight or 0.6,
-			eye_height = model.eye_height or 1.47,
-		})
-		player_api.set_animation(player, "stand")
+	if player_model[name] == model_name then
+		return
 	end
+	player:set_properties({
+		mesh = model_name,
+		textures = player_textures[name] or model.textures,
+		visual = "mesh",
+		visual_size = model.visual_size or {x = 1, y = 1},
+		collisionbox = model.collisionbox or {-0.3, 0.0, -0.3, 0.3, 1.7, 0.3},
+		stepheight = model.stepheight or 0.6,
+		eye_height = model.eye_height or 1.47,
+	})
+	player_api.set_animation(player, "stand")
 	player_model[name] = model_name
 end
+
 
 function player_api.set_textures(player, textures)
 	local name = player:get_player_name()
@@ -58,6 +68,7 @@ function player_api.set_textures(player, textures)
 	player_textures[name] = textures or model_textures
 	player:set_properties({textures = textures or model_textures,})
 end
+
 
 function player_api.set_animation(player, anim_name, speed)
 	local name = player:get_player_name()
@@ -73,6 +84,7 @@ function player_api.set_animation(player, anim_name, speed)
 	player:set_animation(anim, speed or model.animation_speed, animation_blend)
 end
 
+
 minetest.register_on_leaveplayer(function(player)
 	local name = player:get_player_name()
 	player_model[name] = nil
@@ -80,7 +92,8 @@ minetest.register_on_leaveplayer(function(player)
 	player_textures[name] = nil
 end)
 
--- Localize for better performance.
+
+-- Localize for better performance in globalstep function
 local player_set_animation = player_api.set_animation
 local player_attached = player_api.player_attached
 
