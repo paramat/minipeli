@@ -1,5 +1,6 @@
-minipeli 0.1.3 by paramat.
+minipeli 0.2.0 by paramat.
 A game for Minetest Engine 5.0.0 and later.
+
 
 Authors of media
 ----------------
@@ -12,16 +13,16 @@ About Minipeli
 --------------
 'Peli' is the Finnish word for 'game'.
 
-This game is intended to be an example of the minimal requirements for a Minetest game, to help others create their own games.
+This game is intended to be an example of minimal requirements for a Minetest Engine game, to help others create their own games.
 This also suggests a good mod structure, as opposed to the problematic structure of the game called 'Minetest Game', which has most content in one large mod called 'default'. It is better to split the content into many mods.
 
-This game is not as minimal as it could be, the 'creative' mod is not necessary. However, i consider it desirable for most games as freely building without it is very awkward. So the 'creative' mod from Minetest Game has been included, and therefore also the 'sfinv' mod on which it depends, they are almost completely unmodified.
-
-The 'lamp' mod is not necessary, it is only provided to illuminate caves and dungeons during testing.
-
-Because creating animated meshes is difficult the player model from Minetest Game is used, it seems suitable for many games.
+Because creating animated meshes is difficult, the player model from Minetest Game is used, it seems suitable for many games.
 The player API of Minetest Game is very useful and quite fundamental.
-So, the 'player_api' mod from Minetest Game is included in a slightly simplified form.
+So, the 'player_api' mod from Minetest Game is included, but with new player textures.
+
+The 'light' mod is only provided to illuminate caves and dungeons during testing.
+
+if the 'creative' mod from Minetest Game is used with Minipeli, the dependencies in the 'creative' mod mod.conf file must be edited to: 'depends = hand, sfinv'.
 
 
 Why Mapgen v6 is not supported
@@ -29,20 +30,14 @@ Why Mapgen v6 is not supported
 
 In the 'game.conf' file, mapgen v6 is set as a disallowed mapgen.
 Mapgen v6 is very different to all the other mapgens, it has hardcoded biomes and does not use the Biome API. Due to this it makes game code more complex and more difficult to maintain, the mapgen also misses many features.
-It is highly recommended that games do not support Mapgen v6 for these reasons.
+I recommended that games do not support Mapgen v6 for these reasons.
 
 
 The mods
 --------
 
-'creative'
-Unmodified mod from Minetest Game. Convenient for creative mode building.
-
-'sfinv'
-Unmodified mod from Minetest Game. Required by 'creative'.
-
 'player_api'
-Slightly simplified version of mod from Minetest Game.
+A mod from Minetest Game, mostly unmodified, but new player textures are used.
 Provides an API to support multiple registered player models and to set the player model, player textures or a particular player animation.
 Provides an animated player model and skin texture.
 Sets suitable animations according to control inputs and player health.
@@ -50,12 +45,17 @@ Sets suitable animations according to control inputs and player health.
 'gui'
 Contains formspec and HUD related stuff:
 Formspec background, hotbar background, bubble and heart textures.
-Sets the formspec prepend, and can optionally set custom hotbar textures.
+Sets the formspec prepend.
 
 'hand'
 Contains the hand tool related stuff:
 The wieldhand texture.
 Registers the hand tool.
+
+'media'
+Contains textures and sounds that have no suitable location anywhere else:
+The node-digging progress texture 'crack_anylength'.
+The 'player_damage' sound.
 
 'mapgen'
 Contains the mapgen related stuff:
@@ -63,67 +63,49 @@ Terrain, liquid and dungeon nodes, their textures and sounds.
 Mapgen aliases to tell the C++ mapgens which nodes to use.
 Biome registrations.
 
-'media'
-Contains textures and sounds that have no suitable location anywhere else:
-The node-digging progress texture 'crack_anylength'.
-The 'player_damage' sound.
-
-'lamp'
-Unnecessary mod, only included to provide illumination for testing.
+'light'
+Only included to provide illumination for testing.
+Gives 64 lights to a new player.
 
 
 How this game was created
 -------------------------
 
-Minetest Game mods used unmodified or slightly modified:
+Minetest Game mods used slightly modified:
 
-'creative':
-Depend on 'hand' mod instead of 'default' mod.
-'sfinv'
-
-
-Minetest Game mods used modified:
-
-'default' (becomes 'hand', 'gui' and 'media' mods)
-'player_api'
+'player_api' mod:
+Use new player textures, update credits and licence.
+Delete unnecessary mod.conf file.
 
 
-'default' mod changes:
-Split into 3 mods:
+Minetest Game mods used heavily modified:
 
-'hand', contains:
+'default' mod:
+Becomes 'gui', 'hand' and 'media' mods.
+
+
+'default' mod is split into 3 mods:
+
+'gui' mod contains:
 Textures:
-wieldhand.png
+  gui_formbg
+  gui_hb_bg
+  bubble
+  heart
+init.lua:
+minetest.register_on_joinplayer player:set_formspec_prepend with custom hotbar texture code removed.
+Use 'if info and info.formspec_version > 1 then' to avoid error.
+
+'hand' mod contains:
+Textures:
+  wieldhand.png
 init.lua:
 minetest.register_item to register the hand tool.
 
-'gui', contains:
-Textures:
-gui_formbg
-gui_hb_bg
-bubble
-heart
-init.lua:
-minetest.register_on_joinplayer player:set_formspec_prepend
-
-'media', contains:
+'media' mod contains:
 Code:
 Required non-functional init.lua.
 Textures:
-crack_anylength
+  crack_anylength
 Sounds:
-player_damage (from player_api)
-
-
-'player_api' mod changes:
-Now only contains:
-
-Models:
-Player model .b3d, .blend, skin texture
-api.lua:
-Reorder code for clarity, use 'model_name' in 'player_api.register_model'.
-From 'player_api.set_model()' remove sprite code and 'if model then ... end'.
-init.lua:
-From register_on_joinplayer remove:
-player:hud_set_hotbar_image("gui_hotbar.png")
-player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
+  player_damage
