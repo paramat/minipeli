@@ -1,10 +1,8 @@
-See license.txt in each mod directory for more license information.
-
 License of media (textures, schematics)
 ---------------------------------------
 
 Attribution-ShareAlike 3.0 Unported (CC BY-SA 3.0)
-Copyright (C) 2019 paramat
+Copyright (C) 2020 paramat
 
 You are free to:
 
