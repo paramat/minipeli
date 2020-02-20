@@ -230,18 +230,18 @@ minetest.register_node("mapgen:river_water_flowing", {
 })
 
 
--- Lava
+-- Magma
 
-minetest.register_node("mapgen:lava_source", {
-	description = "Lava Source",
+minetest.register_node("mapgen:magma_source", {
+	description = "Magma Source",
 	drawtype = "liquid",
 	tiles = {
 		{
-			name = "mapgen_lava.png",
+			name = "mapgen_magma.png",
 			backface_culling = false,
 		},
 		{
-			name = "mapgen_lava.png",
+			name = "mapgen_magma.png",
 			backface_culling = true,
 		},
 	},
@@ -255,25 +255,25 @@ minetest.register_node("mapgen:lava_source", {
 	drop = "",
 	drowning = 1,
 	liquidtype = "source",
-	liquid_alternative_flowing = "mapgen:lava_flowing",
-	liquid_alternative_source = "mapgen:lava_source",
+	liquid_alternative_flowing = "mapgen:magma_flowing",
+	liquid_alternative_source = "mapgen:magma_source",
 	liquid_viscosity = 7,
 	liquid_renewable = false,
 	damage_per_second = 4 * 2,
 	post_effect_color = {a = 191, r = 255, g = 64, b = 0},
 })
 
-minetest.register_node("mapgen:lava_flowing", {
-	description = "Flowing Lava",
+minetest.register_node("mapgen:magma_flowing", {
+	description = "Flowing Magma",
 	drawtype = "flowingliquid",
-	tiles = {"mapgen_lava.png"},
+	tiles = {"mapgen_magma.png"},
 	special_tiles = {
 		{
-			name = "mapgen_lava.png",
+			name = "mapgen_magma.png",
 			backface_culling = false,
 		},
 		{
-			name = "mapgen_lava.png",
+			name = "mapgen_magma.png",
 			backface_culling = false,
 		},
 	},
@@ -288,8 +288,8 @@ minetest.register_node("mapgen:lava_flowing", {
 	drop = "",
 	drowning = 1,
 	liquidtype = "flowing",
-	liquid_alternative_flowing = "mapgen:lava_flowing",
-	liquid_alternative_source = "mapgen:lava_source",
+	liquid_alternative_flowing = "mapgen:magma_flowing",
+	liquid_alternative_source = "mapgen:magma_source",
 	liquid_viscosity = 7,
 	liquid_renewable = false,
 	damage_per_second = 4 * 2,
@@ -307,7 +307,7 @@ minetest.register_alias("mapgen_river_water_source", "mapgen:river_water_source"
 
 -- Biomes
 
--- Grassland
+-- Grassland biome stack
 
 minetest.register_biome({
 	name = "grassland",
@@ -327,29 +327,40 @@ minetest.register_biome({
 })
 
 minetest.register_biome({
-	name = "grassland_shore",
+	name = "grassland_sea",
 	node_top = "mapgen:sand",
 	depth_top = 1,
 	node_filler = "mapgen:sand",
 	depth_filler = 2,
 	node_riverbed = "mapgen:sand",
+	depth_riverbed = 2,
 	node_cave_liquid = "mapgen:water_source",
 	node_dungeon = "mapgen:stone_block",
 	node_dungeon_stair = "mapgen:stone_block_stair",
-	depth_riverbed = 2,
 	vertical_blend = 1,
 	y_max = 3,
-	y_min = -255,
+	y_min = -127,
 	heat_point = 50,
 	humidity_point = 50,
 })
 
 minetest.register_biome({
 	name = "grassland_under",
-	node_cave_liquid = {"mapgen:water_source", "mapgen:lava_source"},
+	node_cave_liquid = "mapgen:water_source",
 	node_dungeon = "mapgen:stone_block",
 	node_dungeon_stair = "mapgen:stone_block_stair",
-	y_max = -256,
+	y_max = -128,
+	y_min = -1023,
+	heat_point = 50,
+	humidity_point = 50,
+})
+
+minetest.register_biome({
+	name = "grassland_deep",
+	node_cave_liquid = {"mapgen:water_source", "mapgen:magma_source"},
+	node_dungeon = "mapgen:stone_block",
+	node_dungeon_stair = "mapgen:stone_block_stair",
+	y_max = -1024,
 	y_min = -31000,
 	heat_point = 50,
 	humidity_point = 50,
