@@ -1,4 +1,4 @@
--- Light
+-- Register light
 
 minetest.register_node("light:light", {
 	description = "Light",

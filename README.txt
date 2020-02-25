@@ -1,4 +1,4 @@
-minipeli 0.2.3 by paramat.
+minipeli 0.2.4 by paramat.
 A game for Minetest Engine 5.1.0 and later.
 See each mod for mod-specific credits and licenses.
 

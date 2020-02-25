@@ -1,4 +1,4 @@
--- Formspec prepend
+-- Set formspec prepend and hotbar textures
 
 minetest.register_on_joinplayer(function(player)
 	local formspec = [[
@@ -12,9 +12,11 @@ minetest.register_on_joinplayer(function(player)
 	else
 		formspec = formspec .. "background[5,5;1,1;gui_formbg.png;true]"
 	end
+	-- Set the string to be added to every mainmenu formspec, used for theming
 	player:set_formspec_prepend(formspec)
 
-	-- Set hotbar textures
+	-- Set hotbar textures.
+	-- To use, uncomment these 2 lines and add textures to the textures folder.
 	--player:hud_set_hotbar_image("gui_hotbar.png")
 	--player:hud_set_hotbar_selected_image("gui_hotbar_selected.png")
 end)

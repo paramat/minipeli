@@ -1,4 +1,4 @@
--- The hand tool
+-- Register the hand tool
 
 minetest.register_item(":", {
 	type = "none",
