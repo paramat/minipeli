@@ -1,7 +1,5 @@
 Minipeli mod: media
 ===================
-See license.txt for license information.
-Derived by paramat from Minetest Game 'default' mod.
 
 Authors of media
 ----------------

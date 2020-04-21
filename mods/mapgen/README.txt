@@ -1,10 +1,13 @@
 Minipeli mod: mapgen
 ====================
-See license.txt for license information.
+
 Source code by paramat (MIT).
+
+Authors of media
+----------------
 All textures by paramat (CC BY-SA 3.0).
 
-All sounds from Minetest Game:
+All sounds from Minetest Game 'default' mod:
 
 Mito551 (sounds) (CC BY-SA 3.0):
   dig_cracky.ogg

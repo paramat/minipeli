@@ -1,5 +1,5 @@
-minipeli 0.2.4 by paramat.
-A game for Minetest Engine 5.1.0 and later.
+minipeli 0.2.5 by paramat.
+A game for Minetest Engine 5.2.0 and later.
 See each mod for mod-specific credits and licenses.
 
 
@@ -17,7 +17,7 @@ About Minipeli
 This game is intended to be an example of minimal requirements for a Minetest Engine game, while still supporting all non-Mapgen V6 mapgens and providing a minimal number of biomes with appropriate vertical variation.
 The intention is to help others and myself create completely new games.
 
-This also suggests a good mod structure, as opposed to the problematic structure of the game called 'Minetest Game', which has most content in one large mod called 'default'. It is better to split content into many smaller mods.
+This also suggests a good mod structure, as opposed to the problematic structure of Minetest Game, which has most content in one large mod. It is better to split content into many smaller mods.
 
 Because creating animated meshes is difficult, the player model from Minetest Game is used, it seems suitable for many games.
 The player API of Minetest Game is very useful and quite fundamental, so the 'player_api' mod from Minetest Game is included, but with new player textures.
@@ -122,6 +122,7 @@ Minetest Game mods used heavily modified:
 
 'default' mod:
 The minipeli 'gui', 'hand' and 'media' mods are derived from it.
+
 
 'gui' mod contains:
 Textures:

@@ -1,6 +1,5 @@
 Minipeli mod: player_api
 ========================
-See license.txt for license information.
 Derived by paramat from Minetest Game 'player_api' mod.
 
 Provides an API to allow multiple mods to set player models and textures.
