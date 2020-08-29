@@ -1,6 +1,5 @@
-minipeli 0.2.5 by paramat.
+minipeli 0.2.6 by paramat.
 A game for Minetest Engine 5.2.0 and later.
-See each mod for mod-specific credits and licenses.
 
 
 Authors of media
@@ -8,16 +7,17 @@ Authors of media
 paramat (CC BY-SA 3.0):
   header.png
   icon.png
+  screenshot.png
 
 
 About Minipeli
 --------------
 'Peli' is the Finnish word for 'game'.
 
-This game is intended to be an example of minimal requirements for a Minetest Engine game, while still supporting all non-Mapgen V6 mapgens and providing a minimal number of biomes with appropriate vertical variation.
+This game is intended to be one example of minimal requirements for a Minetest Engine game, while still supporting all non-Mapgen V6 mapgens and providing a minimal number of biomes with appropriate vertical variation.
 The intention is to help others and myself create completely new games.
 
-This also suggests a good mod structure, as opposed to the problematic structure of Minetest Game, which has most content in one large mod. It is better to split content into many smaller mods.
+This also suggests a good mod structure, as opposed to the problematic structure of Minetest Game, which has most content in one large mod. It is better to divide content into several mods that correspond to the distinct elements of the game.
 
 Because creating animated meshes is difficult, the player model from Minetest Game is used, it seems suitable for many games.
 The player API of Minetest Game is very useful and quite fundamental, so the 'player_api' mod from Minetest Game is included, but with new player textures.
@@ -45,14 +45,20 @@ Sets suitable animations according to control inputs and player health.
 
 'gui'
 Contains formspec and HUD related stuff:
-Formspec background, hotbar background, bubble and heart textures.
+Formspec background, bubble and heart textures.
 Sets the formspec prepend.
-Sets custom hotbar textures if code un-commented and textures added.
 
 'hand'
-Contains the hand tool related stuff:
+Contains the hand related stuff:
 The wieldhand texture.
-Registers the hand tool.
+Registers the hand.
+
+'creative_mode'
+Activates in creative mode.
+A simple creative mod without a creative inventory.
+Overrides the hand registration for special digging capabilities.
+Enables placing unlimited nodes without removing from inventory.
+Prevents dug nodes being added to inventory if already present.
 
 'media'
 Contains textures and sounds that have no suitable location anywhere else:
@@ -73,14 +79,14 @@ Gives 64 lights to a new player.
 Mapgen aliases
 --------------
 
-Since MT 5.0.0 dungeon nodes and cave liquids are defined in biome definitions, so now only 3 mapgen aliases need to be registered: stone, water, river water.
+Since MT 5.0.0, dungeon nodes and cave liquids are defined in biome definitions, so now only 3 mapgen aliases need to be registered: stone, water, river water.
 
 
 Biomes
 ------
 
 This game registers a single 'biome stack': A set of vertically stacked biomes all with the same heat and humidity points.
-A developed game would usually add extra biome stacks at differing heat and humidity points.
+A more developed game would usually add extra biome stacks at differing heat and humidity points.
 
 The 'grassland' biome stack in this game consists of:
 
@@ -122,27 +128,36 @@ Minetest Game mods used heavily modified:
 
 'default' mod:
 The minipeli 'gui', 'hand' and 'media' mods are derived from it.
+'creative' mod:
+The minipeli 'creative_mode' mod is derived from it.
 
 
 'gui' mod contains:
 Textures:
-  gui_formbg
-  gui_hb_bg
-  bubble
-  heart
+  gui_formbg.png
+  bubble.png
+  heart.png
 init.lua:
-minetest.register_on_joinplayer to set the formspec prepend. The custom hotbar texture code is commented-out. Also use a temporary fix for minetest.get_player_information occasionally being 'nil'.
+minetest.register_on_joinplayer to set the formspec prepend.
 
 'hand' mod contains:
 Textures:
   wieldhand.png
 init.lua:
-minetest.register_item to register the hand tool.
+minetest.register_item to register the hand.
 
 'media' mod contains:
 Textures:
-  crack_anylength
+  crack_anylength.png
 Sounds:
-  player_damage
+  player_damage.ogg
 init.lua:
 Required but empty.
+
+'creative_mode' mod contains:
+init.lua:
+minetest.override_item() to override the hand.
+minetest.register_on_placenode() for placing unlimited nodes without removing from inventory.
+Redefinition of minetest.handle_node_drops() to prevent dug nodes being added to inventory if already present.
+Creative inventory and per-player creative mode are not included for simplicity.
+Players can use chat command '/giveme' to obtain nodes they want to place, and can drop an inventory itemstack to clear space in inventory.

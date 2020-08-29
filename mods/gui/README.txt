@@ -9,10 +9,4 @@ Various Minetest developers and contributors (LGPL 2.1)
 
 Authors of media
 ----------------
-BlockMen (CC BY-SA 3.0):
-  gui_formbg.png
-  gui_hb_bg.png
-
-Paramat (CC BY-SA 3.0):
-  bubble.png
-  heart.png
+All textures by paramat (CC BY-SA 3.0)
