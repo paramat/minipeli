@@ -119,6 +119,7 @@ minetest.register_node("mapgen:water_source", {
 	liquid_alternative_source = "mapgen:water_source",
 	liquid_viscosity = 1,
 	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
+	groups = {water = 1},
 	sounds = water_sounds,
 })
 
@@ -151,7 +152,7 @@ minetest.register_node("mapgen:water_flowing", {
 	liquid_alternative_source = "mapgen:water_source",
 	liquid_viscosity = 1,
 	post_effect_color = {a = 103, r = 30, g = 60, b = 90},
-	groups = {not_in_creative_inventory = 1},
+	groups = {water = 1},
 	sounds = water_sounds,
 })
 
@@ -191,6 +192,7 @@ minetest.register_node("mapgen:river_water_source", {
 	liquid_renewable = false,
 	liquid_range = 2,
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
+	groups = {water = 1},
 	sounds = water_sounds,
 })
 
@@ -225,7 +227,7 @@ minetest.register_node("mapgen:river_water_flowing", {
 	liquid_renewable = false,
 	liquid_range = 2,
 	post_effect_color = {a = 103, r = 30, g = 76, b = 90},
-	groups = {not_in_creative_inventory = 1},
+	groups = {water = 1},
 	sounds = water_sounds,
 })
 

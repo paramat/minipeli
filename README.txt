@@ -1,4 +1,4 @@
-minipeli 0.2.6 by paramat.
+minipeli 0.2.7 by paramat.
 A game for Minetest Engine 5.2.0 and later.
 
 
